@@ -5,8 +5,8 @@
 /* Load Comic Sans MS as a web font */
 @font-face {
   font-family: 'Comic Sans MS';
-  src: url('src/assets/fonts/ComicSansMS.woff2') format('woff2'),
-       url('src/assets/fonts/ComicSansMS.woff') format('woff');
+  src: url('/src/assets/fonts/ComicSansMS.woff') format('woff2'),
+       url('/src/assets/fonts/ComicSansMS.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
