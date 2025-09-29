@@ -91,42 +91,56 @@ export const Navigation: React.FC<NavigationProps> = ({ currentPage, onPageChang
       </div>
 
       {/* Mobile Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 md:hidden">
-        <div className={`px-3 sm:px-4 py-2 sm:py-3 shadow-lg transition-all duration-300 ${
-          isScrolled
-            ? 'bg-gray-900/80 backdrop-blur-md border-b border-gray-700/30'
-            : 'bg-gray-900'
-        }`}>
+      <nav className="fixed top-4 left-4 right-4 z-50 md:hidden">
+        <div
+          className={`rounded-xl px-3 sm:px-4 py-2 sm:py-3 shadow-lg transition-all duration-300 ${
+            isScrolled
+              ? 'bg-gray-900/80 backdrop-blur-md border border-gray-700/30'
+              : 'bg-gray-900'
+          }`}
+        >
           <div className="flex items-center justify-between">
-            <div className={`flex items-center gap-2 sm:gap-3 transition-opacity duration-300 ${
-              isScrolled ? 'opacity-80' : 'opacity-100'
-            }`}>
+            <div
+              className={`flex items-center gap-2 sm:gap-3 transition-opacity duration-300 ${
+                isScrolled ? 'opacity-80' : 'opacity-100'
+              }`}
+            >
               <div className="w-6 h-6 sm:w-8 sm:h-8 bg-white rounded-full flex items-center justify-center">
                 <User className="w-4 h-4 sm:w-5 sm:h-5 text-gray-900" />
               </div>
-              <span className={`text-xs sm:text-sm font-bold transition-colors duration-300 ${
-                isScrolled ? 'text-white/90' : 'text-white'
-              }`}>EduPilot</span>
+              <span
+                className={`text-xs sm:text-sm font-bold transition-colors duration-300 ${
+                  isScrolled ? 'text-white/90' : 'text-white'
+                }`}
+              >
+                EduPilot
+              </span>
             </div>
-            
+
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className={`p-2 transition-colors duration-300 ${
                 isScrolled ? 'text-white/90' : 'text-white'
               }`}
             >
-              {isMobileMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
+              {isMobileMenuOpen ? (
+                <X className="w-5 h-5 sm:w-6 sm:h-6" />
+              ) : (
+                <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
+              )}
             </button>
           </div>
         </div>
 
         {/* Mobile Menu Overlay */}
         {isMobileMenuOpen && (
-          <div className={`px-3 sm:px-4 py-3 sm:py-4 shadow-lg transition-all duration-300 ${
-            isScrolled
-              ? 'bg-gray-900/90 backdrop-blur-md'
-              : 'bg-gray-900'
-          }`}>
+          <div
+            className={`mt-2 rounded-xl px-3 sm:px-4 py-3 sm:py-4 shadow-lg transition-all duration-300 ${
+              isScrolled
+                ? 'bg-gray-900/90 backdrop-blur-md'
+                : 'bg-gray-900'
+            }`}
+          >
             <div className="space-y-1 sm:space-y-2">
               {navItems.map((item) => (
                 <button
@@ -145,7 +159,7 @@ export const Navigation: React.FC<NavigationProps> = ({ currentPage, onPageChang
                   {item.label}
                 </button>
               ))}
-              
+
               <button
                 onClick={onLogout}
                 className={`block w-full text-left px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-bold rounded-lg transition-all duration-200 ${
@@ -161,8 +175,8 @@ export const Navigation: React.FC<NavigationProps> = ({ currentPage, onPageChang
         )}
       </nav>
 
-      {/* Spacer for mobile navigation */}
-      <div className="h-12 sm:h-16 md:hidden"></div>
+      {/* Spacer for mobile floating navbar */}
+      <div className="h-20 md:hidden"></div>
     </>
   );
 };
