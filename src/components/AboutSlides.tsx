@@ -3,13 +3,22 @@ import { Play, Plus, Minus, Star, ChevronRight, Users, Video, Brain, FileText } 
 
 interface AboutSlidesProps {
   onLogin: () => void;
+  videoUrl?: string;
+  thumbnailUrl?: string;
 }
 
-export const AboutSlides: React.FC<AboutSlidesProps> = ({ onLogin }) => {
+export const AboutSlides: React.FC<AboutSlidesProps> = ({ onLogin, videoUrl, thumbnailUrl }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [typedText, setTypedText] = useState('');
   const fullText = "Hi! I am Rishika!";
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const defaultVideoUrl = "/src/graphics/rs.mp4";
+  const defaultThumbnailUrl = "src/graphics/rst.jpg";
+  
+  // Use provided props or fall back to defaults
+  const finalVideoUrl = videoUrl || defaultVideoUrl;
+  const finalThumbnailUrl = thumbnailUrl || defaultThumbnailUrl;
 
   // Typing animation effect
   useEffect(() => {
@@ -132,22 +141,56 @@ export const AboutSlides: React.FC<AboutSlidesProps> = ({ onLogin }) => {
         <div className="w-full max-w-7xl px-6 md:px-8 lg:px-12">
           <div className="w-full flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
             {/* Left: Video Section */}
+            {/* Left: Video Section */}
             <div className="w-full max-w-sm lg:max-w-none lg:w-2/5">
               <div 
                 className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white"
                 style={{ backgroundColor: '#1e1e1e' }}
               >
                 <div className="aspect-[9/16] flex items-center justify-center">
-                  <div className="text-center text-white p-4 sm:p-8">
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 sm:mb-6 rounded-full flex items-center justify-center" style={{ backgroundColor: '#ff8787' }}>
-                      <Play className="w-6 h-6 sm:w-8 sm:h-8 ml-1" />
+                  {finalVideoUrl ? (
+                    <>
+                      <video
+                        className="w-full h-full object-cover"
+                        controls={isPlaying}
+                        poster={finalThumbnailUrl}
+                        onClick={() => setIsPlaying(true)}
+                      >
+                        <source src={finalVideoUrl} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                      {!isPlaying && (
+                        <div 
+                          className="absolute inset-0 flex items-center justify-center cursor-pointer"
+                          onClick={() => setIsPlaying(true)}
+                        >
+                          {finalThumbnailUrl && (
+                            <img 
+                              src={finalThumbnailUrl} 
+                              alt="Video thumbnail" 
+                              className="absolute inset-0 w-full h-full object-cover"
+                            />
+                          )}
+                          <div className="relative z-10 w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center" style={{ backgroundColor: '#ff8787' }}>
+                            <Play className="w-6 h-6 sm:w-8 sm:h-8 ml-1 text-white" />
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <div className="text-center text-white p-4 sm:p-8">
+                      <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 sm:mb-6 rounded-full flex items-center justify-center" style={{ backgroundColor: '#ff8787' }}>
+                        <Play className="w-6 h-6 sm:w-8 sm:h-8 ml-1" />
+                      </div>
+                      <p className="text-base sm:text-lg font-semibold mb-2">Welcome Video</p>
+                      <p className="text-xs sm:text-sm opacity-80">Portrait design with custom thumbnail</p>
                     </div>
-                    <p className="text-base sm:text-lg font-semibold mb-2">Welcome Video</p>
-                    <p className="text-xs sm:text-sm opacity-80">Portrait design with custom thumbnail</p>
-                  </div>
+                  )}
                 </div>
                 <div className="absolute bottom-2 left-2 right-2 sm:bottom-4 sm:left-4 sm:right-4 p-2 sm:p-3 rounded-2xl" style={{ backgroundColor: '#a5d8ff' }}>
-                  <p className="text-xs sm:text-sm font-medium text-center text-gray-900">Click to play introduction</p>
+                  <p className="text-xs sm:text-sm font-medium text-center text-gray-900">
+                    {finalVideoUrl ? 'Click to play introduction' : 'Add video URL to display'}
+                  </p>
                 </div>
               </div>
             </div>
